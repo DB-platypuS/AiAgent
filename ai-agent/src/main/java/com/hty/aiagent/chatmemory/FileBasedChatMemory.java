@@ -27,7 +27,6 @@ public class FileBasedChatMemory implements ChatMemory {
         // 设置实例化策略
         kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());
     }
-
     // 构造对象时，指定文件保存目录
     public FileBasedChatMemory(String dir) {
         this.BASE_DIR = dir;

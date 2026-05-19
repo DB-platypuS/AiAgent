@@ -132,7 +132,5 @@ public class LoveApp {
         log.info("content: {}", content);
         return content;
     }
-
-
 }
 
