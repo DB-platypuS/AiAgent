@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.4</version>
-        <relativePath/>
+        <version>3.5.14</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hty</groupId>
-    <artifactId>ai-agent</artifactId>
+    <artifactId>image-search-mcp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ai-agent</name>
-    <description>ai-agent</description>
+    <name>image-search-mcp</name>
+    <description>image-search-mcp</description>
     <url/>
     <licenses>
         <license/>
@@ -32,14 +32,26 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.37</version>
+        </dependency>
+
+        <!-- SpringAI 服务端 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-mcp-server-webmvc-spring-boot-starter</artifactId>
+            <version>1.0.0-M6</version>
         </dependency>
 
         <dependency>
@@ -47,108 +59,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- Hutool工具库 -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.37</version>
-        </dependency>
-
-        <!-- Knife4j接口文档 -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-            <version>4.4.0</version>
-        </dependency>
-
-        <!-- 阿里云百炼，云积大模型服务 -->
-        <!-- https://mvnrepository.com/artifact/com.alibaba/dashscope-sdk-java -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>dashscope-sdk-java</artifactId>
-            <version>2.19.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter</artifactId>
-            <version>1.0.0-M6.1</version>
-        </dependency>
-
-        <!-- 支持结构化输出 -->
-        <dependency>
-            <groupId>com.github.victools</groupId>
-            <artifactId>jsonschema-generator</artifactId>
-            <version>4.38.0</version>
-        </dependency>
-
-        <!-- 支持文件会话记忆持久化的序列化 -->
-        <dependency>
-            <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
-            <version>5.6.2</version>
-        </dependency>
-
-        <!-- 支持Markdown格式的文档读取 -->
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-markdown-document-reader</artifactId>
-            <version>1.0.0-M6</version>
-        </dependency>
-
-<!--        &lt;!&ndash; 自动整合PGVector向量存储 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.ai</groupId>-->
-<!--            <artifactId>spring-ai-starter-vector-store-pgvector</artifactId>-->
-<!--            <version>1.0.0-M7</version>-->
-<!--        </dependency>-->
-
-        <!-- 手动整合 PGVector向量存储 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-pgvector-store</artifactId>
-            <version>1.0.0-M6</version>
-        </dependency>
-
-        <!-- 支持网页抓取 -->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.19.1</version>
-        </dependency>
-
-        <!-- 支持PDF格式的文档读取-->
-        <!-- https://mvnrepository.com/artifact/com.itextpdf/itext-core -->
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itext-core</artifactId>
-            <version>9.1.0</version>
-            <type>pom</type>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.itextpdf/font-asian -->
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>font-asian</artifactId>
-            <version>9.1.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- MCP客户端 -->
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-mcp-client-spring-boot-starter</artifactId>
-            <version>1.0.0-M6</version>
-        </dependency>
-
     </dependencies>
 
     <build>

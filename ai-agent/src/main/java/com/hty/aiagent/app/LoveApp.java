@@ -16,6 +16,7 @@ import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Component;
 
@@ -103,11 +104,11 @@ public class LoveApp {
     @Resource
     private VectorStore loveAppVectorStore;
 
-    @Resource
-    private Advisor loveAppRagCloudAdvisor;
+//    @Resource
+//    private Advisor loveAppRagCloudAdvisor;
 
-    @Resource
-    private VectorStore pgVectorVectorStore;
+//    @Resource
+//    private VectorStore pgVectorVectorStore;
 
     @Resource
     private QueryRewriter queryRewriter;
@@ -129,18 +130,18 @@ public class LoveApp {
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))//对话记忆
                 //开启日志
                 .advisors(new MyLoggerAdvisor())
-//                //应用RAG知识库问答
-//                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))
+                //应用RAG知识库问答
+                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))
 //                //应用RAG检索增强服务（基于云知识库服务）
 //                .advisors(loveAppRagCloudAdvisor)
 //                //应用RAG检索增强服务（基于PgVector向量存储）
 //                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
                 //应用自定义RAG检索增强服务
-                .advisors(
-                        LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
-                                loveAppVectorStore, "已婚"
-                        )
-                )
+//                .advisors(
+//                        LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
+//                                loveAppVectorStore, "已婚"
+//                        )
+//                )
                 .call()
                 .chatResponse();
         String content = chatResponse.getResult().getOutput().getText();
@@ -173,4 +174,31 @@ public class LoveApp {
         log.info("content: {}", content);
         return content;
     }
+
+    //AI 调用 MCP 能力
+    @Resource
+    private ToolCallbackProvider toolCallbackProvider;
+
+    /**
+     * AI 恋爱报告功能（调用 MCP 服务）
+     * @param message
+     * @param chatId
+     * @return
+     */
+    public String doChatWithMcp(String message, String chatId) {
+        ChatResponse response = chatClient
+                .prompt()
+                .user(message)
+                .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
+                // 开启日志，便于观察效果
+                .advisors(new MyLoggerAdvisor())
+                .tools(toolCallbackProvider)
+                .call()
+                .chatResponse();
+        String content = response.getResult().getOutput().getText();
+        log.info("content: {}", content);
+        return content;
+    }
+
 }
