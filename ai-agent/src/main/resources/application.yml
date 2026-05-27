@@ -38,12 +38,3 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
-
-
-spring:
-  ai:
-    mcp:
-      client:
-
-        # stdio:
-        # servers-configuration: classpath:mcp-servers.json
